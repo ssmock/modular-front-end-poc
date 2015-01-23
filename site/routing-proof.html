@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>POC</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+
+            body div {
+                width: 600px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+                body div > a {
+                    display: block;
+                }
+    </style>
+</head>
+<body>
+    <div>
+        <a href="#user">users</a>
+        <a href="#about">about</a>
+        <a href="#user?name-like=K">users where names start with "K"</a>
+        <a href="#user/1">person page for ID = 1</a>
+        <a href="#user/2">person page for ID = 2</a>
+        <a href="#not-found-route">nonsense (unfound)</a>
+        <a href="#">empty</a>
+    </div>
+    <div id="Main">
+
+    </div>
+    <script src="node_modules/director/build/director.js"></script>
+    <script src="node_modules/underscore/underscore.js"></script>
+    <script src="node_modules/query-string/query-string.js"></script>
+    <script>
+        function getQuery(route) {
+            // Handle an array or a string.
+            route = route instanceof Array ? _.last(route) : route;
+
+            // Try to extract the query string.
+            var matches = route.match(/(\?.+)/);
+
+            // If we got matches, grab the first one, and skip the first character.
+            if (matches) {
+                return queryString.parse(matches[0].slice(1));
+            }
+
+            return null;
+        }
+
+        function logRouter() {
+            // console.log("--- router (before): ", router);
+        }
+
+        var routes = {
+            "/user": {
+                on: function () {
+                    var query = getQuery(router.getRoute());
+
+                    console.log("full user list", query);
+                },
+                once: function () {
+                    console.log("first time user list");
+                },
+                before: logRouter,
+                "/:id": {
+                    on: function (id) {
+                        console.log("just user " + id);
+                    },
+                    once: function (id) {
+                        console.log("first time for user " + id);
+                    },
+                    before: logRouter
+                }
+            },
+            "/about": {
+                on: function () {
+                    console.log("about page"); 4
+                },
+                once: function () {
+                    console.log("first time about");
+                },
+                before: logRouter
+            },
+            "/": {
+                on: function () {
+                    console.log("ummm...");
+                },
+                once: function () {
+                    console.log("first time NUTHIN!");
+                },
+                before: logRouter
+            }
+        };
+
+        var router = Router(routes);
+
+        router.notfound = function () {
+            console.log("Not found!");
+        };
+
+        router.init();
+    </script>
+</body>
+</html>
