@@ -1,9 +1,39 @@
 ﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title></title>
+    <title>POC - React + Routes</title>
+    <style>
+        body {
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+
+        #menu {
+            float: left;
+            clear: both;
+            margin-right: 10px;
+            border: 1px solid #9A9;
+            padding: 10px;
+        }
+
+            #menu > a {
+                display: block;
+            }
+
+        #main {
+            padding: 10px;
+        }
+    </style>
 </head>
 <body>
-
+    <div id="menu">
+        <a href="#/user">User List</a>
+        <a href="#/about">About</a>
+        <a href="#/contact">Contact</a>
+        <!-- TODO: <a href="#/user/1">User 1</a>-->
+        <!-- TODO: <a href="#/user?name-like=K">Users like K*</a>-->
+    </div>
+    <div id="main">
+    </div>
+    <script src="dist/main.bundle.js"></script>
 </body>
 </html>
