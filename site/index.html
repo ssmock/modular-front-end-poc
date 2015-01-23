@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>POC</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+
+            body div {
+                width: 600px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+    </style>
+</head>
+<body>
+    <div>
+        <a href="#user">users</a> |
+        <a href="#about">about</a> |
+        <a href="#user?name-like=K">users where names start with "K"</a> |
+        <a href="#user/1">person page for ID = 1</a>
+    </div>
+    <div id="Main">
+
+    </div>
+    <script src="node_modules/director/build/director.js"></script>
+    <script src="node_modules/underscore/underscore.js"></script>
+    <script>
+        function logRouter() {
+            console.log(router);
+        }
+
+        var routes = {
+            "/user/:id": {
+                on: function (id) {
+                    console.log("just user " + id);
+                },
+                after: logRouter
+            },
+            "/user?:query": {
+                on: function (query) {
+                    console.log("queried list: " + query);
+
+                    console.log
+                },
+                after: logRouter
+            },
+            "/user": {
+                on: function () {
+                    console.log("full user list");
+
+                    console.log("--- router: ", router);
+                },
+                after: logRouter
+            },
+            "/about": {
+                on: function () {
+                    console.log("about page");
+
+                    console.log("--- router: ", router);
+                },
+                after: logRouter
+            },
+            "/": {
+                on: function () {
+                    console.log("ummm...");
+
+                    console.log("--- router: ", router);
+                },
+                after: logRouter
+            }
+        };
+
+        var router = Router(routes);
+
+        router.notfound = {
+            on: function () {
+                console.log("Not found!");
+            }
+        };
+
+        router.init();
+    </script>
+</body>
+</html>
