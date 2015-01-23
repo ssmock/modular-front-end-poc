@@ -13,14 +13,21 @@
                 margin-left: auto;
                 margin-right: auto;
             }
+
+                body div > a {
+                    display: block;
+                }
     </style>
 </head>
 <body>
     <div>
-        <a href="#user">users</a> |
-        <a href="#about">about</a> |
-        <a href="#user?name-like=K">users where names start with "K"</a> |
+        <a href="#user">users</a>
+        <a href="#about">about</a>
+        <a href="#user?name-like=K">users where names start with "K"</a>
         <a href="#user/1">person page for ID = 1</a>
+        <a href="#user/2">person page for ID = 2</a>
+        <a href="#not-found-route">nonsense (unfound)</a>
+        <a href="#">empty</a>
     </div>
     <div id="Main">
 
@@ -29,56 +36,67 @@
     <script src="node_modules/underscore/underscore.js"></script>
     <script>
         function logRouter() {
-            console.log(router);
+            console.log("--- router (before): ", router);
         }
 
         var routes = {
+            // WORKING
             "/user/:id": {
                 on: function (id) {
                     console.log("just user " + id);
                 },
-                after: logRouter
+                once: function (id) {
+                    console.log("first time for user " + id);
+                },
+                before: logRouter
             },
+            // NOT WORKING
+            "/user?um":function (query) {
+                console.log("***** GOT UM");
+            },
+            // NOT WORKING
             "/user?:query": {
                 on: function (query) {
-                    console.log("queried list: " + query);
-
-                    console.log
+                    console.log("queried list: " + query); 4
                 },
-                after: logRouter
+                once: function () {
+                    console.log("first time queried user list");
+                },
+                before: logRouter
             },
             "/user": {
                 on: function () {
                     console.log("full user list");
-
-                    console.log("--- router: ", router);
                 },
-                after: logRouter
+                once: function () {
+                    console.log("first time user list");
+                },
+                before: logRouter
             },
             "/about": {
                 on: function () {
-                    console.log("about page");
-
-                    console.log("--- router: ", router);
+                    console.log("about page"); 4
                 },
-                after: logRouter
+                once: function () {
+                    console.log("first time about");
+                },
+                before: logRouter
             },
             "/": {
                 on: function () {
                     console.log("ummm...");
-
-                    console.log("--- router: ", router);
                 },
-                after: logRouter
+                once: function () {
+                    console.log("first time NUTHIN!");
+                },
+                before: logRouter
             }
         };
 
         var router = Router(routes);
 
-        router.notfound = {
-            on: function () {
-                console.log("Not found!");
-            }
+        router.notfound = function () {
+            console.log("Not found!");
         };
 
         router.init();
