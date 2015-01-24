@@ -3,7 +3,7 @@ var routerConstants = require("../constants/router-constants");
 
 module.exports = {
     switchView: function (viewName, queryObject) {
-        dispatcher.handleViewAction({
+        dispatcher.handleRouteAction({
             actionType: routerConstants.SWITCH_VIEW,
             viewName: viewName,
             queryObject: queryObject

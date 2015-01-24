@@ -1,22 +1,20 @@
 ﻿var baseDispatcher = require("./base-dispatcher");
+var constants = require("./constants/dispatcher-constants");
 var merge = require("react/lib/merge");
 
-function actionHandler(target, source) {
-    return function (action) {
-        console.log("Handling for " + source, action);
-
-        target.dispatch({
-            source: source,
+var appDispatcher = merge(baseDispatcher.prototype, {
+    handleRouteAction: function (action) {
+        this.dispatch({
+            source: constants.ROUTE_ACTION,
             action: action
         });
-    }
-}
-
-var handlers = {
-    handleRouteAction: actionHandler(this, "ROUTE_ACTION"),
-    handleViewAction: actionHandler(this, "VIEW_ACTION")
-};
-
-var appDispatcher = merge(baseDispatcher.prototype, handlers);
+    },
+    handleViewAction: function (action) {
+        this.dispatch({
+            source: constants.VIEW_ACTION,
+            action: action
+        });
+    },
+});
 
 module.exports = appDispatcher;

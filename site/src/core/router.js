@@ -9,7 +9,7 @@ var routes = {
         on: function () {
             var query = getQuery(router.getRoute());
 
-            console.log("full user list", query);
+            routerActions.switchView("user", query);
         },
         once: function () {
             console.log("first time user list");
@@ -25,7 +25,9 @@ var routes = {
     },
     "/about": {
         on: function () {
-            console.log("about page");
+            var query = getQuery(router.getRoute());
+
+            routerActions.switchView("about", query);
         },
         once: function () {
             console.log("first time about");
@@ -33,7 +35,9 @@ var routes = {
     },
     "/contact": {
         on: function () {
-            console.log("contact page");
+            var query = getQuery(router.getRoute());
+
+            routerActions.switchView("contact", query);
         },
         once: function () {
             console.log("first time contact");
