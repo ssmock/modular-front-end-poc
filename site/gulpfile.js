@@ -1,4 +1,5 @@
-﻿var gulp = require("gulp");
+/// <vs BeforeBuild='build-clean-js' />
+var gulp = require("gulp");
 var gutil = require("gulp-util");
 var runSequence = require("run-sequence");
 var del = require("del");
@@ -76,17 +77,6 @@ gulp.task("build-clean-js", function (callback) {
     runSequence("clean", "build-js", callback);
 });
 
-// Non-minified build in watch mode
-gulp.task("build-watch-js", function (callback) {
-    webpack(
-		getWebpackConfigForAutoUpdate(),
-		getWebpackCallback("webpack"));
-});
-
-gulp.task("build-watch-clean-js", function (callback) {
-    runSequence("clean", "build-watch-js");
-});
-
 // Minified build
 gulp.task("prod-build-js", function (callback) {
     webpack(
@@ -97,3 +87,16 @@ gulp.task("prod-build-js", function (callback) {
 gulp.task("prod-build-clean-js", function (callback) {
     runSequence("clean", "prod-build-js", callback);
 });
+
+/* Not working so hot with TRE.
+// Non-minified build in watch mode
+gulp.task("build-watch-js", function (callback) {
+    webpack(
+		getWebpackConfigForAutoUpdate(),
+		getWebpackCallback("webpack"));
+});
+
+gulp.task("build-watch-clean-js", function (callback) {
+    runSequence("clean", "build-watch-js");
+});
+*/

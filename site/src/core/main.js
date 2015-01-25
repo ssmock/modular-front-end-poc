@@ -1,13 +1,18 @@
-﻿var router = require("./router");
-var viewService = require("./main-view-service");
+﻿var Router = require("./router");
 var React = require("React");
 
 console.log("Started main.");
-console.log("--- Router: ", router);
-console.log("--- View Service: ", viewService);
+console.log("--- Router: ", Router);
+//console.log("--- View Service: ", viewService);
 console.log("--- React: ", React);
 
-//var 
+Router.addChangeListener(function (message) {
+    console.log("Got it!", message);
+});
+
+var initialRoute = Router.GetCurrentRoute();
+
+console.log("Initial route: ", initialRoute);
 
 //getInitialState: function () {
 //    return getCart();
