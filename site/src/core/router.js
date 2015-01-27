@@ -72,7 +72,8 @@ function makeRouteChangeMessage() {
     return new RouteChangeMessage(route, queryValues)
 }
 
-// Give the service a getter so that this stuff can be retrieved on-demand, too.
+// Give the service a getter so that this stuff can be retrieved 
+// on - demand, too.
 service.GetCurrentRoute = function () {
     return makeRouteChangeMessage();
 };
