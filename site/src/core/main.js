@@ -1,33 +1,16 @@
 ﻿var Router = require("./router");
+var Views = require("./views");
 var React = require("React");
+
 var DOM = React.DOM;
 var EL = React.createElement;
-
-//var mainViews = {
-//    "": home,
-//    "user": user,
-//    "about": about,
-//    "contact": contact
-//};
-
-function getMainViewForRoute(route, callback) {
-    //
-    // TODO: We need to async this... hmm...
-    // BIG QUESTION:
-    //     When, and how, do we load components asynchronously??
-    //
-    var componentPath = "../components/" + route.Route[0];
-
-    require.ensure([componentPath], function (deps) {
-        callback(deps[componentPath]);
-    });
-}
+var defaultView = null;
 
 var main = React.createClass({
     getInitialState: function () {
         return {
-            route: Router.GetCurrentRoute(),
-            currentMainView: null
+            route: this.props.initialRoute,
+            currentView: this.props.initialView
         };
     },
 
@@ -36,48 +19,37 @@ var main = React.createClass({
     },
 
     routeChanged: function (newRoute) {
-        getMainViewForRoute(newRoute, function (mainView) {
-            this.setState({
+        var self = this;
+
+        Views.GetMainViewForRoute(newRoute, function (mainView) {
+            self.setState({
                 route: newRoute,
-                currentMainView: mainView
+                currentView: mainView
             });
         });
     },
 
     render: function () {
-        viewType = getMainViewForRoute(this.state.route);
+        var view =
+            this.state.currentView
+            ? EL(this.state.currentView, {
+                route: this.state.route
+            })
+            : defaultView;
 
-        var view = DOM.div({}, "");
-
-        if (this.state.currentMainView) {
-            DOM.div(null,
-                [
-                    EL(this.state.currentMainView, {
-                        route: this.state.route
-                    })
-                ]);
-        }
-        //else {
-        //    // Just use the default.
-        //}
-
-        return view;
+        return view
     }
 });
 
-var componentPath = "../components/about.js";
+var initialRoute = Router.GetCurrentRoute();
 
-require.ensure([], function () {
-    var component = require(componentPath);
-    console.log("called back: ", component);
-    //callback(deps[componentPath]);
+Views.GetMainViewForRoute(initialRoute, function (initialView) {
+    defaultView = initialView;
+
+    React.render(
+        EL(main, {
+            initialRoute: initialRoute,
+            initialView: initialView
+        }),
+        document.getElementById("main-view-box"));
 });
-
-//React.render(
-//    //EL(main),
-//    document.getElementById("main-view-box"),
-//    function () {
-//        //
-//        // Any old thing.
-//        //
-//    });
