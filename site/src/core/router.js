@@ -30,8 +30,8 @@ function emitChange(routeChangeMessage) {
 }
 
 // Our message type.
-var RouteChangeMessage = function (route, queryValues) {
-    this.Route = route;
+var RouteChangeMessage = function (segments, queryValues) {
+    this.Segments = segments;
     this.QueryValues = queryValues;
 };
 
