@@ -39,8 +39,6 @@ var RouteChangeMessage = function (route, queryValues) {
 // will allow consumers to access it as a type.)
 service.RouteChangeMessage = RouteChangeMessage;
 
-module.exports = service;
-
 // Gets an object containing query values from the specified route,
 // regardless of whether it's expressed as an array or a string.
 function getQueryValues(route) {
@@ -118,3 +116,5 @@ router.init();
 if (!router.getRoute()[0]) {
     router.setRoute("");
 }
+
+module.exports = service;
