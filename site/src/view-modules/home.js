@@ -25,24 +25,19 @@ module.exports = {
 
         mount();
 
-        (_.noop || callback)();
+        (callback || _.noop)();
+
+    },
+
+    Update: function (props, callback) {
+
+        (callback || _.noop)();
 
     },
 
     TearDown: function (callback) {
 
-        console.log("Tear down " + name);
-
-        (_.noop || callback)();
-
-    },
-    Update: function (props, callback) {
-
-        console.log("Update " + name, props);
-
-        mount();
-
-        (_.noop || callback)();
+        (callback || _.noop)();
 
     }
 };

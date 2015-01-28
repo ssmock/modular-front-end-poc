@@ -38,22 +38,23 @@ module.exports = {
             EL(user, props),
             mountPoint);
 
-        (_.noop || callback)();
+        (callback || _.noop)();
 
     },
 
-    TearDown: function (callback) {
-
-        (_.noop || callback)();
-
-    },
     Update: function (props, callback) {
 
         React.render(
             EL(user, props),
             mountPoint);
 
-        (_.noop || callback)();
+        (callback || _.noop)();
+
+    },
+
+    TearDown: function (callback) {
+
+        (callback || _.noop)();
 
     }
 };

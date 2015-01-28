@@ -7,18 +7,19 @@ module.exports = {
         
         viewMountPoint.innerHTML = "<div>ABOUT!</div>";
 
-        (_.noop || callback)();
+        (callback || _.noop)();
+
+    },
+
+    Update: function (props, callback) {
+
+        (callback || _.noop)();
 
     },
 
     TearDown: function (callback) {
 
-        (_.noop || callback)();
-
-    },
-    Update: function (props, callback) {
-
-        (_.noop || callback)();
+        (callback || _.noop)();
 
     }
 };
