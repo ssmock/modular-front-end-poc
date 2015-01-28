@@ -1,4 +1,14 @@
-﻿var Router = require("./router");
+﻿/*
+ * This commits us to React.  It would be better
+ * to push it down one more level -- each item in
+ * views should be able to be a different thing,
+ * i.e. they don't all need to be React.
+ *
+ * All of which is to say: this is unused, but
+ * kept for posterity.
+ */
+
+var Router = require("./router");
 var Views = require("./views");
 var React = require("React");
 

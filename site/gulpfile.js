@@ -16,7 +16,7 @@ function getWebpackConfig(options) {
             // Our "lib" entry point.  Also a common chunk; see plugins, below.
             //lib: ["underscore", "director", "whatwg-fetch", "react"],
             // Modules.
-            main: "./src/core/main.js"
+            main: "./src/core/view-module-loader.js"
         },
         output: {
             path: __dirname + "/dist",
