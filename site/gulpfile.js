@@ -16,18 +16,18 @@ function getWebpackConfig(options) {
             // Our "lib" entry point.  Also a common chunk; see plugins, below.
             //lib: ["underscore", "director", "whatwg-fetch", "react"],
             // Modules.
-            main: "./src/core/view-module-loader.js"
+            main: "./src/js/core/view-module-loader.js"
         },
         output: {
-            path: __dirname + "/dist",
-            publicPath: "dist/",
+            path: __dirname + "/dist/js",
+            publicPath: "dist/js/",
             filename: "[name].bundle.js"
         },
-        //plugins: [
+        plugins: [
         //    new commonsChunk(
         //        "lib",
         //        "lib.js")
-        //],
+        ],
         resolve: {
             modulesDirectories: ["node_modules"] //, "src/core"]
         }
