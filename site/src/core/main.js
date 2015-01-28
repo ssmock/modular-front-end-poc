@@ -44,7 +44,7 @@ var main = React.createClass({
 var initialRoute = Router.GetCurrentRoute();
 
 Views.GetMainViewForRoute(initialRoute, function (initialView) {
-    defaultView = initialView;
+    defaultView = initialView; // In case view-getting fails.
 
     React.render(
         EL(main, {

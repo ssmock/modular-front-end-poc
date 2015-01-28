@@ -1,4 +1,6 @@
 ﻿var React = require("React");
+var _ = require("underscore");
+
 var DOM = React.DOM;
 var EL = React.createElement;
 
@@ -16,8 +18,6 @@ var user = React.createClass({
     },
 
     render: function () {
-        console.log("rendering", this.state);
-
         return DOM.div(null,
             [
                 DOM.div(null, "USER!"),
