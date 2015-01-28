@@ -1,8 +1,9 @@
 ﻿var Router = require("director").Router;
-var Merge = require('react/lib/merge');
 var EventEmitter = require('events').EventEmitter;
 var QueryString = require("query-string");
 var _ = require("underscore");
+
+var ViewModules = require("./view-modules");
 
 // We delegate change event emission to this service,
 // rather than exposing our router directly.  Look
@@ -10,7 +11,7 @@ var _ = require("underscore");
 var service;
 var CHANGE_EVENT = "change"; // We need an event name.
 
-var service = Merge(EventEmitter.prototype, {
+var service = _.extend(EventEmitter.prototype, {
     // Adds a listener for the route change event, which
     // can accept a RouteChangeMessage.
     addChangeListener: function (callback) {
@@ -82,25 +83,34 @@ service.GetCurrentRoute = function () {
 
 // Our sole route-change handler: just emits a message indicating
 // the current route.
-function routeHandler (){
+function routeHandler() {
     emitChange(makeRouteChangeMessage());
 }
 
-var routes = {
-    "/user": {
-        on: routeHandler,
-        "/:id": routeHandler
-    },
-    "/about": {
+// Initialize our routing table based on core/view-modules.js
+var routes = {};
+
+function makeRoute(source) {
+    var route = {
         on: routeHandler
-    },
-    "/contact": {
-        on: routeHandler
-    },
-    "/": {
-        on: routeHandler
+    };
+
+    _.each(source, function (value, key) {
+        // Non-functions are assumed to be route branches.
+        if (!(value instanceof Function)) {
+            route["/" + key] = makeRoute(value);
+        }
+    });
+
+    return route;
+}
+
+_.each(ViewModules, function (value, key) {
+    // Non-functions are assumed to be route branches.
+    if (!(value instanceof Function)) {
+        routes["/" + key] = makeRoute(value);
     }
-};
+});
 
 var router = Router(routes);
 
