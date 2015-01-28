@@ -7,21 +7,27 @@
             font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
         }
 
+        body > div {
+            display: inline-block;
+            vertical-align: top;
+        }
+
         #menu {
-            float: left;
-            clear: both;
             margin-right: 10px;
-            border: 1px solid #9A9;
             padding: 10px;
+            border: 1px solid #9A9;
             border-radius: 5px;
         }
 
             #menu > a {
                 display: block;
+                margin: 20px;
             }
 
-        #view-box {
+        #main-view-box {
             padding: 10px;
+            border: 1px solid #9A9;
+            border-radius: 5px;
         }
     </style>
 </head>
@@ -29,12 +35,12 @@
     <div id="menu">
         <a href="#">Home</a>
         <a href="#/user">User List</a>
-        <a href="#/about">About</a>
-        <a href="#/contact">Contact</a>
         <a href="#/user/1">User 1</a>
         <a href="#/user?name-like=K">Users like K*</a>
+        <a href="#/about">About</a>
+        <a href="#/contact">Contact</a>
     </div>
-    <div id="view-box">
+    <div id="main-view-box">
     </div>
     <script src="dist/main.bundle.js"></script>
 </body>
