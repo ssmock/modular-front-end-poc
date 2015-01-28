@@ -12,10 +12,10 @@
  * About the module members:
  *
  * This is pure convention, and a little unsafe, in consequence.  The rule
- * is: members that are not function are assumed to be route branches.  For
- * further explanation, see core/router.js.
+ * is: members that are not functions are assumed to be route branches.  For
+ * further explanation, see how it's used in core/router.js.
  *
- * This convention also applies to the viewModules object itself.
+ * This convention also applies to the viewModules object itself!
  */
 
 var viewModules = {

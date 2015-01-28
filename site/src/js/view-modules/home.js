@@ -17,9 +17,7 @@ function mount() {
 
 module.exports = {
     SetUp: function (props, viewMountPoint, callback) {
-
-        console.log("Set up " + name, props, viewMountPoint, callback);
-
+        
         mountPoint = viewMountPoint;
         viewProps = props;
 
